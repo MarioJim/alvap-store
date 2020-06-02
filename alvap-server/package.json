@@ -1,0 +1,13 @@
+{
+  "name": "alvap-server",
+  "version": "1.0.0",
+  "main": "server.js",
+  "repository": "https://github.com/MarioJim/alvap-store",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "pg": "^8.2.1"
+  }
+}

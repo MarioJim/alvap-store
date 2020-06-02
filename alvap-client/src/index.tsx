@@ -12,6 +12,7 @@ import Login from './views/Login';
 import Order from './views/Order';
 import PastOrders from './views/PastOrders';
 import Product from './views/Product';
+import SignUp from './views/SignUp';
 import ShoppingCart from './views/ShoppingCart';
 import Store from './views/Store';
 import './index.css';
@@ -30,6 +31,7 @@ const App: React.FunctionComponent = () => (
       <Route path="/orden/:id" component={Order} />
       <Route path="/ordenes" component={PastOrders} />
       <Route path="/producto/:id" component={Product} />
+      <Route path="/registrate" component={SignUp} />
       <Route path="/carrito" component={ShoppingCart} />
       <Route path="/tienda" component={Store} />
     </Switch>
