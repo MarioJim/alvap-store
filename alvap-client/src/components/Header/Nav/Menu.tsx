@@ -1,25 +1,32 @@
 import React from 'react'
 import styled from "@emotion/styled";
 
-const Ul = styled.ul`
+
+interface MenuProps {
+  open: boolean
+}
+const Ul = styled.ul<MenuProps>`
     list-style: none;
     display: flex;
     flex-flow: row nowrap;
+    z-index: 10;
 
     li{
         padding: 10px;
     }
 
     @media (max-width: 760px){
-        display: none;
+        transform: ${({open})=>open ? 'translateX(0)' : 'translateX(100%)'};
         flex-flow: column nowrap;
         background-color: red;
         position: fixed;
         top: 0;
         right: 0;
         height: 100vh;
-        width: 300px;
+        width: 15rem;
         padding-top: 3.5rem;
+        margin-top: 0;
+        transition: transform 0.3s ease-in-out;
 
         li{
             color: white;
@@ -27,9 +34,9 @@ const Ul = styled.ul`
     }
 `;
 
-const Menu=()=>{
-    return (
-      <Ul>
+const Menu= ({open}:{open: boolean})=>{
+  return(
+      <Ul open={open}>
         <li>Store</li>
         <li>About us</li>
         <li>Account</li>

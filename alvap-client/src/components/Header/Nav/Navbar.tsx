@@ -1,6 +1,5 @@
 import React from 'react'
 import styled from "@emotion/styled";
-import Menu from './Menu'
 import Burger from './Burger';
 
 const Nav = styled.nav({
@@ -21,9 +20,8 @@ const Name = styled.div({
 const Navbar = () =>{
     return (
       <Nav>
-        <Name className="ham">AL-VAP</Name>
+        <Name className="title">AL-VAP</Name>
         <Burger />
-        <Menu />
       </Nav>
     );
 }
