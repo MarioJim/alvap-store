@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from "@emotion/styled";
+import { Link } from 'react-router-dom';
 
 
 interface MenuProps {
@@ -13,6 +14,10 @@ const Ul = styled.ul<MenuProps>`
 
     li{
         padding: 10px;
+    }
+
+    a{
+      color: rgba(0,0,0,.87);
     }
 
     @media (max-width: 760px){
@@ -41,15 +46,18 @@ const Ul = styled.ul<MenuProps>`
             line-height: normal;
             text-align:right;
         }
+        a{
+          color: white;
+        }
     }
 `;
 
 const Menu= ({open}:{open: boolean})=>{
   return(
       <Ul open={open}>
-        <li>Store</li>
-        <li>About us</li>
-        <li>Account</li>
+        <li><Link to="/tienda">Store</Link></li>
+        <li><Link to="/nosotros">About us</Link></li>
+        <li><Link to="/login">Log in</Link></li>
         <li>Coupons</li>
         <li>Past orders</li>
       </Ul>
