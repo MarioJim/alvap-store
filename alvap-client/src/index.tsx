@@ -15,6 +15,7 @@ import Product from './views/Product';
 import SignUp from './views/SignUp';
 import ShoppingCart from './views/ShoppingCart';
 import Store from './views/Store';
+import 'semantic-ui-css/semantic.min.css';
 import './index.css';
 
 const App: React.FunctionComponent = () => (
@@ -38,9 +39,4 @@ const App: React.FunctionComponent = () => (
   </BrowserRouter>
 );
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+ReactDOM.render(<App />, document.getElementById('root'));

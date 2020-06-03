@@ -1,18 +1,36 @@
 import React from 'react';
-import facebook from "./facebook.png"
-import twitter from "./twitter.png"
-import instagram from "./instagram.png"
-import { Link } from 'react-router-dom';
+import styled from '@emotion/styled';
+import facebook from './facebook.png';
+import twitter from './twitter.png';
+import instagram from './instagram.png';
+import { Subtitle, Title } from '../../styles/shared-components';
+
+const Logo = styled.img({
+  width: '25%',
+  display: 'block',
+  margin: '7.5% auto',
+  filter: 'grayscale(100%)',
+});
+
+const Text = styled.p({
+  margin: '5% 15%',
+  textAlign: 'center',
+  fontFamily: 'Verdana',
+  fontSize: '15px',
+  lineHeight: '25px',
+});
 
 const AboutUs: React.FunctionComponent = () => (
   <div>
-    <h1>About Us page</h1>
-    {/*<Link to="www.facebook.com"></Link>*/}
-    <h2>Social Media</h2>
-    <img src={facebook} alt="Facebook logo" className="logo" id="facebook"/>
-    <img src={twitter} alt="Twitter logo" className="logo" id="twitter" />
-    <img src={instagram} alt="instagram logo" className="logo" id="instagram" />
-    <p>Remember to follow us on our social media to know more about us and get notified about promotions and deals</p>
+    <Title>About Us page</Title>
+    <Subtitle>Social Media</Subtitle>
+    <Logo src={facebook} alt="Facebook logo" />
+    <Logo src={twitter} alt="Twitter logo" />
+    <Logo src={instagram} alt="Instagram logo" />
+    <Text>
+      Remember to follow us on our social media to know more about us and get
+      notified about promotions and deals
+    </Text>
   </div>
 );
 
