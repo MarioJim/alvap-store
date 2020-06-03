@@ -22,7 +22,7 @@ const App: React.FunctionComponent = () => (
   <BrowserRouter>
     <Header />
     <Switch>
-      <Redirect exact from="/" to="/login" />
+      <Redirect exact from="/" to="/nosotros" />
       <Route path="/nosotros" component={AboutUs} />
       <Route path="/cuenta" component={Account} />
       <Route path="/pago" component={AddCard} />
