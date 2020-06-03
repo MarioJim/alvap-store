@@ -18,18 +18,28 @@ const Ul = styled.ul<MenuProps>`
     @media (max-width: 760px){
         transform: ${({open})=>open ? 'translateX(0)' : 'translateX(100%)'};
         flex-flow: column nowrap;
-        background-color: red;
+        background-color: #008079;
         position: fixed;
         top: 0;
         right: 0;
-        height: 100vh;
-        width: 15rem;
-        padding-top: 3.5rem;
+        height: 150vh;
+        width: 80vw;
+        padding-top: 10vh;
         margin-top: 0;
+        margin-bottom:0;
         transition: transform 0.3s ease-in-out;
 
         li{
             color: white;
+            padding-right: 12.5%;
+            padding-top: 5vh;
+            padding-bottom: 0;
+            font-size: 1.71428571rem;
+            height: auto;
+            display: inline-block;
+            vertical-align: middle;
+            line-height: normal;
+            text-align:right;
         }
     }
 `;
