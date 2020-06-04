@@ -52,7 +52,7 @@ const Burger=()=>{
                 <div></div>
                 <div></div>
             </StyledBurger>
-            <Menu open={open}></Menu>
+            <Menu open={open} onClick={() => setOpen(!open)}></Menu>
         </>
     );
 }

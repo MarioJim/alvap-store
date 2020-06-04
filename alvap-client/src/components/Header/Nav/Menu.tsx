@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useState} from 'react'
 import styled from "@emotion/styled";
 import { Link } from 'react-router-dom';
 
@@ -7,6 +7,7 @@ interface MenuProps {
   open: boolean
 }
 const Ul = styled.ul<MenuProps>`
+    @import url('https://fonts.googleapis.com/css2?family=Work+Sans&display=swap');
     list-style: none;
     display: flex;
     flex-flow: row nowrap;
@@ -18,6 +19,10 @@ const Ul = styled.ul<MenuProps>`
 
     a{
       color: rgba(0,0,0,.87);
+      font-family: 'Work Sans', sans-serif;
+    }
+    a:hover {
+      color: #afb6b6;
     }
 
     @media (max-width: 760px){
@@ -52,9 +57,9 @@ const Ul = styled.ul<MenuProps>`
     }
 `;
 
-const Menu= ({open}:{open: boolean})=>{
+const Menu = ({ open, onClick }: { open: boolean , onClick:() => void}) => {
   return(
-      <Ul open={open}>
+        <Ul open={open} onClick={onClick}>
         <li><Link to="/tienda">Store</Link></li>
         <li><Link to="/nosotros">About us</Link></li>
         <li><Link to="/login">Log in</Link></li>
