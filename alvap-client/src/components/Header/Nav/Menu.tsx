@@ -8,6 +8,7 @@ interface MenuProps {
 }
 const Ul = styled.ul<MenuProps>`
     @import url('https://fonts.googleapis.com/css2?family=Work+Sans&display=swap');
+
     list-style: none;
     display: flex;
     flex-flow: row nowrap;
@@ -37,13 +38,15 @@ const Ul = styled.ul<MenuProps>`
         padding-top: 10vh;
         margin-top: 0;
         margin-bottom:0;
+        padding-left:0;
         transition: transform 0.3s ease-in-out;
 
         li{
             color: white;
+            width: 100%;
             padding-right: 12.5%;
-            padding-top: 5vh;
-            padding-bottom: 0;
+            padding-top: 3.5vh;
+            padding-bottom: 3.5vh;
             font-size: 1.71428571rem;
             height: auto;
             display: inline-block;
@@ -51,7 +54,13 @@ const Ul = styled.ul<MenuProps>`
             line-height: normal;
             text-align:right;
         }
+        li:hover{
+          background-color: #004d49;
+        }
         a{
+          color: white;
+        }
+        a:hover{
           color: white;
         }
     }
@@ -59,12 +68,12 @@ const Ul = styled.ul<MenuProps>`
 
 const Menu = ({ open, onClick }: { open: boolean , onClick:() => void}) => {
   return(
-        <Ul open={open} onClick={onClick}>
-        <li><Link to="/tienda">Store</Link></li>
-        <li><Link to="/nosotros">About us</Link></li>
-        <li><Link to="/login">Log in</Link></li>
-        <li>Coupons</li>
-        <li>Past orders</li>
+        <Ul open={open}>
+      <Link to="/tienda"><li onClick={onClick}>Store</li></Link>
+      <Link to="/nosotros"><li onClick={onClick}>About us</li></Link>
+      <Link to="/login"><li onClick={onClick}>Login</li></Link>
+      <li onClick={onClick}>Coupons</li>
+      <li onClick={onClick}>Past orders</li>
       </Ul>
     );
 }
