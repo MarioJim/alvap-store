@@ -1,12 +1,12 @@
 import { RequestHandler } from 'express';
 import * as yup from 'yup';
-import { domicilio, correo, nombre, password } from './yup_types';
+import { celular, correo, nombre, password } from './yup_types';
 import { dbConnection } from '../database';
 
 const registrationSchema = yup.object().shape({
   correo,
   password,
-  domicilio,
+  celular,
   nombre,
 });
 
@@ -18,10 +18,10 @@ export const handle_register: RequestHandler = (req, res) => {
     return;
   }
   dbConnection.run(
-    'INSERT INTO Cliente (correo, password, domicilio, nombre) VALUES (?, ?, ?, ?)',
+    'INSERT INTO Repartidor (correo, password, celular, nombre) VALUES (?, ?, ?, ?)',
     req.body.correo,
     req.body.password,
-    req.body.domicilio,
+    req.body.celular,
     req.body.nombre,
     (err: any) => {
       if (err) {

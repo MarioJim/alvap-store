@@ -4,7 +4,8 @@ import { Strategy } from 'passport-local';
 import { dbConnection } from '../database';
 import { User } from '../database/types';
 import products_router from './products';
-import { handle_register, handle_login } from './users';
+import * as users from './users';
+import * as delivery from './delivery_men';
 
 // From https://github.com/passport/express-4.x-local-example
 passport.use(
@@ -50,14 +51,24 @@ router.get('/', (req, res) => {
   });
 });
 
-router.post('/register', handle_register);
+router.post('/register', users.handle_register);
 
 router.post(
   '/login',
   passport.authenticate('local', {
     failureRedirect: '/login',
   }),
-  handle_login,
+  users.handle_login,
+);
+
+router.post('/registerDelivery', delivery.handle_register);
+
+router.post(
+  '/login',
+  passport.authenticate('local', {
+    failureRedirect: '/login',
+  }),
+  delivery.handle_login,
 );
 
 router.use('/products', products_router);
