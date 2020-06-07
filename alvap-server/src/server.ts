@@ -4,6 +4,7 @@ import express from 'express';
 import path from 'path';
 
 import api from './api';
+import { dbConnection } from './database';
 
 // From https://www.taniarascia.com/node-express-postgresql-heroku/
 const app = express();
@@ -18,7 +19,10 @@ app.use('/api', api);
 
 // Fallback to React frontend
 app.get('*', (req, res) => {
-  res.send('GET to fallback\n' + path.join(__dirname, '..', '..', 'alvap-client', 'dist'));
+  res.send(
+    'GET to fallback\n' +
+      path.join(__dirname, '..', '..', 'alvap-client', 'dist'),
+  );
 });
 
 const port = process.env.PORT || 3002;

@@ -3,7 +3,7 @@ import path from 'path';
 
 sqlite3.verbose();
 
-const DB_PATH = path.join(__dirname, '..', 'alvap.db');
+const DB_PATH = path.join(__dirname, '..', '..', 'alvap.db');
 
 export const dbConnection = new sqlite3.Database(DB_PATH, (err) => {
   if (err) {
