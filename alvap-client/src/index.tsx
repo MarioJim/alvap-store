@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 
-import Header from './components/Header';
+import Nav from './components/Nav';
 import AboutUs from './views/AboutUs';
 import Account from './views/Account';
 import AddCard from './views/AddCard';
@@ -20,7 +20,7 @@ import './index.css';
 
 const App: React.FunctionComponent = () => (
   <BrowserRouter>
-    <Header />
+    <Nav />
     <Switch>
       <Redirect exact from="/" to="/login" />
       <Route path="/nosotros" component={AboutUs} />
