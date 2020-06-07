@@ -5,7 +5,7 @@ import { dbConnection } from '../database';
 const router = express.Router();
 
 const productId = yup.object().shape({
-  id: yup.number().positive(),
+  id: yup.number().positive().required(),
 });
 
 router.get('/', (req, res) => {
@@ -13,7 +13,7 @@ router.get('/', (req, res) => {
     productId.validateSync(req.body);
   } catch (error) {
     // Fallback to sending all products
-    dbConnection.all('SELECT * FROM Productos', (err, rows) => {
+    dbConnection.all('SELECT * FROM Producto', (err, rows) => {
       if (err) res.status(500).json(err);
       else res.json(rows);
     });
