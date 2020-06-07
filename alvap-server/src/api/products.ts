@@ -4,27 +4,20 @@ import { dbConnection } from '../database';
 
 const router = express.Router();
 
-const productId = yup.object().shape({
-  id: yup.number().positive().required(),
+router.get('/', (req, res) => {
+  dbConnection.all('SELECT * FROM Producto', (err, rows) => {
+    if (err) res.sendStatus(500);
+    else res.json(rows);
+  });
 });
 
-router.get('/', (req, res) => {
-  try {
-    productId.validateSync(req.body);
-  } catch (error) {
-    // Fallback to sending all products
-    dbConnection.all('SELECT * FROM Producto', (err, rows) => {
-      if (err) res.status(500).json(err);
-      else res.json(rows);
-    });
-    return;
-  }
-  // Get a single product
+router.get('/:id', (req, res) => {
   dbConnection.get(
     'SELECT * FROM Producto WHERE id = (?)',
-    req.body.id,
+    req.params.id,
     (err, row) => {
-      if (err) res.status(500).json(err);
+      if (err) res.sendStatus(500);
+      else if (row === undefined) res.sendStatus(404);
       else res.json(row);
     },
   );
@@ -58,7 +51,7 @@ router.post('/', (req, res) => {
     req.body.precio,
     req.body.descripcion,
     (err: any) => {
-      if (err) res.status(500).json(err);
+      if (err) res.sendStatus(500);
       else res.sendStatus(200);
     },
   );
@@ -85,7 +78,7 @@ router.put('/', (req, res) => {
     req.body.id,
     (err, row) => {
       if (err) {
-        res.status(500).json(err);
+        res.sendStatus(500);
         return;
       } else if (row === undefined) {
         res.status(404).json(['Producto no encontrado']);
@@ -100,7 +93,7 @@ router.put('/', (req, res) => {
           $descripcion: req.body.descripcion ?? row.descripcion,
         },
         (err) => {
-          if (err) res.status(500).json(err);
+          if (err) res.sendStatus(500);
           else res.sendStatus(200);
         },
       );

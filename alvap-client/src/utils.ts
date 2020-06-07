@@ -1,6 +1,6 @@
 const fetchFromApi = (path: string, init?: RequestInit) =>
   process.env.NODE_ENV === 'development'
-    ? fetch(`https://localhost:3002/api${path}`, init)
+    ? fetch(`http://localhost:3002/api${path}`, init)
     : fetch(`/api${path}`, init);
 
 export const getFromApi = (path: string) =>

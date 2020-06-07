@@ -46,7 +46,7 @@ router.use(passport.session());
 
 router.get('/', (req, res) => {
   dbConnection.get('SELECT sqlite_version()', (err, row) => {
-    if (err) res.status(500).json(err);
+    if (err) res.sendStatus(500);
     else res.json(row);
   });
 });

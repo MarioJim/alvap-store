@@ -23,5 +23,5 @@ app.get('*', (req, res) => {
 
 const port = process.env.PORT || 3002;
 app.listen(port, () => {
-  console.log(`Server listening on https://localhost:${port}`);
+  console.log(`Server listening on http://localhost:${port}`);
 });
