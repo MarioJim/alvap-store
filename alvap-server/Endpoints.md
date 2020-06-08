@@ -1,0 +1,71 @@
+# Endpoints
+
+Todos los endpoints responden 500 cuando el servidor no puede responder a la solicitud
+
+- POST /api/register
+  - Espera un JSON con correo, password, domicilio y nombre
+  - Cuando todo es correcto devuelve 200
+  - Cuando el formulario tiene errores, devuelve 406 y una lista de errores
+  - Cuando el correo ya ha sido registrado devuelve 409 con una lista de errores
+- POST /api/login
+  - Espera un JSON con username y password
+  - Redirecciona a /tienda si el login es correcto
+- POST /api/registerDelivery
+  - Espera un JSON con correo, password, domicilio y nombre
+  - Cuando todo es correcto devuelve 200
+  - Cuando el formulario tiene errores, devuelve 406 y una lista de errores
+  - Cuando el correo ya ha sido registrado devuelve 409 con una lista de errores
+- POST /api/loginDelivery
+  - Espera un JSON con username y password
+  - Redirecciona a /tienda si el login es correcto
+- GET /api/cards/:id
+  - Espera un id de orden como parámetro
+  - Cuanto todo está bien regresa un objeto Tarjeta
+  - Cuando no encuentra una tarjeta con ese id regresa 404
+- GET /api/cards/cliente/:id
+  - Espera un id de cliente como parámetro
+  - Cuanto todo está bien regresa un array de objetos Tarjeta con las tarjetas del cliente
+- POST /api/cards/
+  - Espera un JSON con id_cliente, titular, num, fecha y cvv
+  - Cuanto todo está bien regresa 200
+  - Cuando no encuentra un cliente con ese id regresa 406
+- GET /api/carts/:id
+  - Espera un id de carrito como parámetro
+  - Cuanto todo está bien regresa una lista de objetos Producto con los productos en el carrito
+- GET /api/carts/:id/promos
+  - Espera un id de carrito como parámetro
+  - Cuanto todo está bien regresa una lista de objetos Promocion con las promociones del carrito
+- POST /api/carts/
+  - Espera un JSON con id_cliente
+  - Cuanto todo está bien regresa un JSON con el id del nuevo carrito
+  - Cuando no encuentra un cliente con ese id regresa 406
+- POST /api/carts/addProduct
+  - Espera un JSON con id_carrito y id_producto
+  - Cuanto todo está bien regresa 200
+  - Cuando no encuentra un carrito o un producto con ese id regresa 406
+- GET /api/orders/:id
+  - Espera un id de orden como parámetro
+  - Cuanto todo está bien regresa un objeto Orden
+  - Cuando no encuentra una orden con ese id regresa 404
+- GET /api/orders/cliente/:id
+  - Espera un id de cliente como parámetro
+  - Cuanto todo está bien regresa un array de objetos Orden con las órdenes del cliente
+- POST /api/orders/
+  - Espera un JSON con id_carrito y propina
+  - Cuanto todo está bien regresa 200
+  - Cuando no encuentra un carrito con ese id regresa 406
+- GET /api/products
+  - Cuanto todo está bien regresa una lista de objetos Producto con todos los productos de la tienda
+- GET /api/products/:id
+  - Espera un id de producto como parámetro
+  - Cuanto todo está bien regresa un objeto Producto
+  - Cuando no encuentra un producto con ese id regresa 404
+- POST /api/products/
+  - Espera un JSON con nombre, precio y descripcion
+  - Cuanto todo está bien regresa 200
+  - Cuando el formulario tiene errores, devuelve 406 y una lista de errores
+- PUT /api/products
+  - Espera un JSON con id, y posiblemente nombre, precio y descripcion
+  - Cuanto todo está bien regresa 200
+  - Cuando el formulario tiene errores, devuelve 406 y una lista de errores
+  - Cuando no existe un producto con ese id regresa 404

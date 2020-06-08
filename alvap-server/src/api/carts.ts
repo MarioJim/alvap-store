@@ -46,7 +46,7 @@ router.post('/', async (req, res) => {
       'INSERT INTO Carrito (id_cliente) VALUES (?)',
       req.body.id_cliente,
     );
-    res.status(200).json({ id: lastID });
+    res.json({ id: lastID });
   } catch (error) {
     if (error.errno === 19)
       res.status(406).json(['No existe un cliente con ese ID']);

@@ -72,7 +72,7 @@ router.post(
 router.post('/registerDelivery', delivery.handle_register);
 
 router.post(
-  '/login',
+  '/loginDelivery',
   passport.authenticate('local', {
     failureRedirect: '/login',
   }),
