@@ -10,13 +10,18 @@ const Store: React.FunctionComponent = () => {
       setProductos(res);
     });
   }, []);
-  
+
   return (
     <div>
-      <h1 style={{textAlign:'center'}}>Store page</h1>
+      <h1 style={{ textAlign: 'center' }}>Store page</h1>
       <div>
-        {productos.map((producto, i) => (
-          <Product p_ID={producto.id} nombre={producto.nombre} precio={producto.precio} key={i}/>
+        {productos.map((producto) => (
+          <Product
+            id={producto.id}
+            nombre={producto.nombre}
+            precio={producto.precio}
+            key={producto.id}
+          />
         ))}
       </div>
     </div>
