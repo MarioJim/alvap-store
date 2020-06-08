@@ -14,10 +14,11 @@ export const postToApi = (path: string, data: any) =>
     },
     body: JSON.stringify(data),
   }).then(async (res) => {
+    const text = await res.text();
     try {
-      return await res.json();
+      return JSON.parse(text);
     } catch (error) {
-      return {};
+      return text;
     }
   });
 

@@ -6,14 +6,9 @@ import {
   Message,
   Segment,
   Button,
-  FormProps,
 } from 'semantic-ui-react';
 import { postToApi } from '../../utils';
 import { useHistory } from 'react-router-dom';
-
-const handleRegister = async () => {
-  postToApi('/register', {});
-};
 
 const SignUp: React.FunctionComponent = () => {
   const history = useHistory();
@@ -30,10 +25,10 @@ const SignUp: React.FunctionComponent = () => {
       domicilio,
       nombre,
     }).then((res) => {
-      console.log(res);
       if (res.error) {
         setError(res.error[0]);
       } else {
+        setError('');
         setSuccess(true);
         setTimeout(() => {
           history.push('/login');
@@ -95,10 +90,10 @@ const SignUp: React.FunctionComponent = () => {
               value={nombre}
               onChange={(_, { value }) => setNombre(value)}
             />
+            <Button color="teal" fluid size="large" type="submit">
+              Registrar cuenta
+            </Button>
           </Segment>
-          <Button fluid type="submit">
-            Registrar cuenta
-          </Button>
         </Form>
         <br />
       </Grid.Column>

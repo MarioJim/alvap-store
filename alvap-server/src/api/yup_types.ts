@@ -18,3 +18,8 @@ export const celular = yup
 export const nombre = yup.string().required('Inserta un nombre');
 
 export const domicilio = yup.string().required('Inserta un domicilio');
+
+export const loginSchema = yup.object().shape({
+  correo,
+  password: yup.string().required('Inserta una contraseña'),
+});
