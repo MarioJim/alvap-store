@@ -4,6 +4,7 @@ import { Strategy } from 'passport-local';
 import * as db from '../database';
 import { User } from '../database/types';
 import cards_router from './credit_cards';
+import carts_router from './carts';
 import orders_router from './orders';
 import products_router from './products';
 import * as users from './users';
@@ -79,6 +80,7 @@ router.post(
 );
 
 router.use('/cards', cards_router);
+router.use('/carts', carts_router);
 router.use('/orders', orders_router);
 router.use('/products', products_router);
 
