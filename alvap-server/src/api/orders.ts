@@ -13,6 +13,7 @@ router.get('/:id', async (req, res) => {
     if (row === undefined) res.sendStatus(404);
     else res.json(row);
   } catch (error) {
+    console.error(error);
     res.sendStatus(500);
   }
 });
@@ -23,9 +24,9 @@ router.get('/cliente/:id', async (req, res) => {
       'SELECT * FROM Orden INNER JOIN (SELECT Carrito.id AS select_id FROM Carrito WHERE Carrito.id_cliente = ?) ON Orden.id = select_id',
       req.params.id,
     );
-    if (rows.length === 0) res.sendStatus(404);
-    else res.json(rows);
+    res.json(rows);
   } catch (error) {
+    console.error(error);
     res.sendStatus(500);
   }
 });
@@ -53,9 +54,12 @@ router.post('/', async (req, res) => {
     );
     res.sendStatus(200);
   } catch (error) {
-    if (error.errorno === 19)
+    if (error.errno === 19)
       res.status(406).json(['No existe un carrito con ese ID']);
-    else res.sendStatus(500);
+    else {
+      console.error(error);
+      res.sendStatus(500);
+    }
   }
 });
 

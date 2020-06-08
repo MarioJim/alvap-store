@@ -53,6 +53,7 @@ router.get('/', async (req, res) => {
     const row = await db.get('SELECT sqlite_version()');
     res.json(row);
   } catch (error) {
+    console.error(error);
     res.sendStatus(500);
   }
 });

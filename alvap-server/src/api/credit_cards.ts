@@ -13,6 +13,7 @@ router.get('/:id', async (req, res) => {
     if (row === undefined) res.sendStatus(404);
     else res.json(row);
   } catch (error) {
+    console.error(error);
     res.sendStatus(500);
   }
 });
@@ -23,9 +24,9 @@ router.get('/cliente/:id', async (req, res) => {
       'SELECT * FROM Tarjeta WHERE Tarjeta.id_cliente = (?)',
       req.params.id,
     );
-    if (rows.length === 0) res.sendStatus(404);
-    else res.json(rows);
+    res.json(rows);
   } catch (error) {
+    console.error(error);
     res.sendStatus(500);
   }
 });
@@ -60,7 +61,7 @@ router.post('/', async (req, res) => {
   }
   try {
     await db.run(
-      'INSERT INTO Tarjeta (id_cliente, titular, num, fecha, cvv) VALUES (?, ?, ?, ?)',
+      'INSERT INTO Tarjeta (id_cliente, titular, num, fecha, cvv) VALUES (?, ?, ?, ?, ?)',
       req.body.id_cliente,
       req.body.titular,
       req.body.num,
@@ -69,9 +70,12 @@ router.post('/', async (req, res) => {
     );
     res.sendStatus(200);
   } catch (error) {
-    if (error.errorno === 19)
+    if (error.errno === 19)
       res.status(406).json(['No existe un cliente con ese ID']);
-    else res.sendStatus(500);
+    else {
+      console.error(error);
+      res.sendStatus(500);
+    }
   }
 });
 

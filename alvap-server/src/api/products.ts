@@ -9,6 +9,7 @@ router.get('/', async (req, res) => {
     const rows = await db.all('SELECT * FROM Producto');
     res.json(rows);
   } catch (error) {
+    console.error(error);
     res.sendStatus(500);
   }
 });
@@ -22,6 +23,7 @@ router.get('/:id', async (req, res) => {
     if (row === undefined) res.sendStatus(404);
     else res.json(row);
   } catch (error) {
+    console.error(error);
     res.sendStatus(500);
   }
 });
@@ -57,6 +59,7 @@ router.post('/', async (req, res) => {
     );
     res.sendStatus(200);
   } catch (error) {
+    console.error(error);
     res.sendStatus(500);
   }
 });
@@ -95,7 +98,7 @@ router.put('/', async (req, res) => {
     );
     res.sendStatus(200);
   } catch (error) {
-    console.log(error);
+    console.error(error);
     res.sendStatus(500);
   }
 });
