@@ -81,7 +81,9 @@ const Menu: React.FunctionComponent<MenuProps> = ({ open, onClick }) => (
     <Link to="/login">
       <li onClick={onClick}>Login</li>
     </Link>
-    <li onClick={onClick}>Cupones</li>
+    <Link to="/cupones">
+      <li onClick={onClick}>Cupones</li>
+    </Link>
     <li onClick={onClick}>Órdenes</li>
   </Ul>
 );
