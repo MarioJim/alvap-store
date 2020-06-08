@@ -1,9 +1,8 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { getFromApi } from '../../utils';
 
 const Coupons: React.FunctionComponent = () => (
-  <div>
-    <h1>Coupons page</h1>
-  </div>
+  
 );
 
 export default Coupons;
