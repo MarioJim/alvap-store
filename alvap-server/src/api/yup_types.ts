@@ -7,7 +7,7 @@ export const correo = yup
 
 export const password = yup
   .string()
-  .length(8, 'La contraseña debe de tener por lo menos 8 caracteres')
+  .min(8, 'La contraseña debe de tener por lo menos 8 caracteres')
   .required('Inserta una contraseña');
 
 export const celular = yup
