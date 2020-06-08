@@ -62,6 +62,7 @@ const SignUp: React.FunctionComponent = () => {
               icon="mail"
               iconPosition="left"
               placeholder="Correo electrónico"
+              autoComplete="username"
               value={correo}
               onChange={(_, { value }) => setCorreo(value)}
             />
@@ -70,6 +71,7 @@ const SignUp: React.FunctionComponent = () => {
               icon="lock"
               iconPosition="left"
               placeholder="Contraseña"
+              autoComplete="new-password"
               type="password"
               value={password}
               onChange={(_, { value }) => setPassword(value)}

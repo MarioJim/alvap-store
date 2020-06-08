@@ -58,6 +58,7 @@ const Login: React.FunctionComponent = () => {
               icon="user"
               iconPosition="left"
               placeholder="Correo electrónico"
+              autoComplete="username"
               value={correo}
               onChange={(_, { value }) => setCorreo(value)}
             />
@@ -67,6 +68,7 @@ const Login: React.FunctionComponent = () => {
               iconPosition="left"
               placeholder="Contraseña"
               type="password"
+              autoComplete="current-password"
               value={password}
               onChange={(_, { value }) => setPassword(value)}
             />

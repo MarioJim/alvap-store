@@ -1,16 +1,39 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
+import { getFromApi } from '../../utils';
+import Product from '../Store/product';
 
 interface MatchParams {
-  id: string
+  id: string;
 }
 
-interface Props extends RouteComponentProps<MatchParams> { }
+interface Props extends RouteComponentProps<MatchParams> {}
 
-const Order: React.FunctionComponent<Props> = ({ match }) => (
-  <div>
-    <h1>Order page for order {match.params.id}</h1>
-  </div>
-);
+const Order: React.FunctionComponent<Props> = ({ match }) => {
+  const [order, setOrder] = useState<any[]>([]);
+  useEffect(() => {
+    getFromApi(`/carts/${match.params.id}`).then((res) => {
+      console.log(res);
+      setOrder(res);
+    });
+  }, [match.params.id]);
+  return (
+    <div>
+      <h1>Order page for order {match.params.id}</h1>
+      {order.length === 0 ? (
+        <div>Orden vacía</div>
+      ) : (
+        order.map((producto) => (
+          <Product
+            key={producto.id}
+            id={producto.id}
+            nombre={producto.nombre}
+            precio={producto.precio}
+          />
+        ))
+      )}
+    </div>
+  );
+};
 
 export default Order;
