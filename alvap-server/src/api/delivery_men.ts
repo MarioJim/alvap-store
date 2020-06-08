@@ -14,7 +14,7 @@ export const handle_register: RequestHandler = async (req, res) => {
   try {
     registrationSchema.validateSync(req.body);
   } catch (error) {
-    res.status(406).json(error.errors);
+    res.status(200).json({ error: error.errors });
     return;
   }
   try {

@@ -43,7 +43,7 @@ router.post('/', async (req, res) => {
   try {
     insertOrderSchema.validateSync(req.body);
   } catch (error) {
-    res.status(406).json(error.errors);
+    res.status(200).json({ error: error.errors });
     return;
   }
   try {
@@ -55,7 +55,7 @@ router.post('/', async (req, res) => {
     res.sendStatus(200);
   } catch (error) {
     if (error.errno === 19)
-      res.status(406).json(['No existe un carrito con ese ID']);
+      res.status(200).json({ error: ['No existe un carrito con ese ID'] });
     else {
       console.error(error);
       res.sendStatus(500);
