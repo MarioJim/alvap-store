@@ -10,22 +10,23 @@ const Coupons: React.FunctionComponent = () => {
       setCupones(res);
     });
   }, []);
-  let div;
+  let info;
   if(cupones.length===0){
-    div=<p style={{textAlign:'center'}}>No tienes cupones disponibles</p>
+    info=<p style={{textAlign:'center'}}>No tienes cupones disponibles</p>
   }
   else{
-    div = <div>
-            {cupones.map((cupon, i) => (
-            <Coupon c_ID={cupon.id} nombre={cupon.nombre} descuento={cupon.descuento} descripcion={cupon.descripcion} />
-            ))}
-          </div>
+    info = <p style={{ textAlign: 'center' }}>Cupones disponibles: </p>
   }
 
   return (
     <div>
       <h1 style={{ textAlign: 'center' }}>Cupones disponibles</h1>
-      {div}
+      {info}
+      <div>
+        {cupones.map((cupon, i) => (
+          <Coupon c_ID={cupon.id} nombre={cupon.nombre} descuento={cupon.descuento} descripcion={cupon.descripcion} />
+        ))}
+      </div>
     </div>
   );
 };
