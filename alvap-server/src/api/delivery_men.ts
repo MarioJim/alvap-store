@@ -28,7 +28,7 @@ export const handle_register: RequestHandler = async (req, res) => {
     res.sendStatus(200);
   } catch (error) {
     if (error.errno === 19)
-      res.status(409).json(['Ya existe una cuenta con ese correo']);
+      res.status(200).json({ error: ['Ya existe una cuenta con ese correo'] });
     else {
       console.error(error);
       res.sendStatus(500);

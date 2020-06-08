@@ -9,11 +9,29 @@ export const getFromApi = (path: string) =>
 export const postToApi = (path: string, data: any) =>
   fetchFromApi(path, {
     method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
     body: JSON.stringify(data),
-  }).then((res) => res.json());
+  }).then(async (res) => {
+    try {
+      return await res.json();
+    } catch (error) {
+      return {};
+    }
+  });
 
 export const putToApi = (path: string, data: any) =>
   fetchFromApi(path, {
     method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
     body: JSON.stringify(data),
-  }).then((res) => res.json());
+  }).then(async (res) => {
+    try {
+      return await res.json();
+    } catch (error) {
+      return {};
+    }
+  });

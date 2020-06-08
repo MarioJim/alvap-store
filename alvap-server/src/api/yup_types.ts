@@ -2,7 +2,7 @@ import * as yup from 'yup';
 
 export const correo = yup
   .string()
-  .email('Inserta un correo electrónico')
+  .email('Inserta un correo electrónico válido')
   .required('Inserta un correo electrónico');
 
 export const password = yup
