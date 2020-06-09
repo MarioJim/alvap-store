@@ -44,10 +44,10 @@ router.post('/', async (req, res) => {
   try {
     const rows = await db.all(
       'SELECT * FROM Carrito WHERE id_cliente = ?',
-      req.params.cliente,
+      req.body.id_cliente,
     );
     if (rows.length !== 0) {
-      res.json({ cart: rows.pop() });
+      res.json({ cart: rows.pop().id });
       return;
     }
     const { lastID } = await db.run(

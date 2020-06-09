@@ -1,53 +1,48 @@
-import React, {useState, useEffect} from 'react';
-import { RouteComponentProps } from 'react-router-dom'
+import React, { useState, useEffect } from 'react';
 import { getFromApi } from '../../utils';
 import Swipeout from 'rc-swipeout';
+import { withCookies, Cookies } from 'react-cookie';
 
-interface MatchParams {
-  id: string;
+interface Props {
+  cookies: Cookies;
 }
 
-interface Props extends RouteComponentProps<MatchParams> {}
-
-const ShoppingCart: React.FunctionComponent<Props> = ({ match }) => {
-  const [order, setOrder] = useState<any[]>([]);
+const ShoppingCart: React.FunctionComponent<Props> = ({ cookies }) => {
+  const [products, setProducts] = useState<any[]>([]);
+  const cart = cookies.get('cart');
   useEffect(() => {
-    getFromApi(`/carts/${match.params.id}`).then((res) => {
+    getFromApi(`/carts/${cart}`).then((res) => {
       console.log(res);
-      setOrder(res);
-    /*
-        <Product
-          key={producto.id}
-          id={producto.id}
-          nombre={producto.nombre}
-          precio={producto.precio}
-        /> */
+      setProducts(res);
     });
-  }, [match.params.id]);
+  }, [cart]);
   return (
     <div>
-      <h1 style={{textAlign:'center', marginTop:'5%'}}>ShoppingCart page for order {match.params.id}</h1>
-      {order.length === 0 ? (
-        <div style={
-          {
-            textAlign:'center',
+      <h1 style={{ textAlign: 'center', marginTop: '5%' }}>Carrito compras</h1>
+      {products.length === 0 ? (
+        <div
+          style={{
+            textAlign: 'center',
             fontSize: '1.71456rem',
-            marginTop: '5%'
-          }
-        }>Carrito vacío</div>
+            marginTop: '5%',
+          }}
+        >
+          Carrito vacío
+        </div>
       ) : (
-        order.map((producto) => (
+        products.map((producto) => (
           <div>
             <Swipeout
-              right={
-                [
-                  {
-                    text: 'delete',
-                    onPress: () => console.log('delete'),
-                    style: { backgroundColor: 'red', color: 'white' },
-                  }
-                ]}>
-                  <span>{producto.nombre}</span><span>${producto.precio}</span>
+              right={[
+                {
+                  text: 'delete',
+                  onPress: () => console.log('delete'),
+                  style: { backgroundColor: 'red', color: 'white' },
+                },
+              ]}
+            >
+              <span>{producto.nombre}</span>
+              <span>${producto.precio}</span>
             </Swipeout>
           </div>
         ))
@@ -56,4 +51,4 @@ const ShoppingCart: React.FunctionComponent<Props> = ({ match }) => {
   );
 };
 
-export default ShoppingCart;
+export default withCookies(ShoppingCart);

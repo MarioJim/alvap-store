@@ -39,6 +39,9 @@ const Login: React.FunctionComponent<LoginProps> = ({ cookies }) => {
         setTimeout(() => {
           history.push('/tienda');
         }, 2000);
+        postToApi('/carts', {
+          id_cliente: res.userID,
+        }).then((resp) => cookies.set('cart', resp.cart));
       }
     });
   };

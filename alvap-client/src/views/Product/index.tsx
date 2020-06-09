@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { RouteComponentProps, Link } from 'react-router-dom';
-import { getFromApi } from '../../utils';
+import { getFromApi, postToApi } from '../../utils';
 import styled from '@emotion/styled';
 import unavailable from '../Store/unavailable.png';
-import { Button, Header } from 'semantic-ui-react';
+import { Button, Header, Message } from 'semantic-ui-react';
+import { withCookies, Cookies } from 'react-cookie';
 
 interface MatchParams {
   id: string;
 }
 
-interface Props extends RouteComponentProps<MatchParams> {}
+interface Props extends RouteComponentProps<MatchParams> {
+  cookies: Cookies;
+}
 
 const StyleProduct = styled.div<MatchParams>`
   h1,
@@ -49,14 +52,26 @@ const StyleProduct = styled.div<MatchParams>`
   }
 `;
 
-const Product: React.FunctionComponent<Props> = ({ match }) => {
+const Product: React.FunctionComponent<Props> = ({ cookies, match }) => {
   const [product, setProduct] = useState<any>({ id: -1 });
+  const [success, setSuccess] = useState(false);
   useEffect(() => {
     getFromApi(`/products/${match.params.id}`).then((res) => {
       console.log(res);
       setProduct(res);
     });
   }, [match.params.id]);
+  const cart = cookies.get('cart');
+  const handleAddToCart = () => {
+    postToApi('/carts/addProduct', {
+      id_carrito: cart,
+      id_producto: match.params.id,
+    }).then((res) => {
+      if (!res.errors) {
+        setSuccess(true);
+      }
+    });
+  };
   return (
     <StyleProduct id={match.params.id}>
       {product.id === -1 ? (
@@ -71,7 +86,12 @@ const Product: React.FunctionComponent<Props> = ({ match }) => {
             <img src={product.foto} alt={product.nombre + ' foto'} />
           )}
           <Header as="h2">{product.descripcion}</Header>
-          <Button color="teal">Añadir al carrito</Button>
+          <Button color="teal" onClick={handleAddToCart}>
+            Añadir al carrito
+          </Button>
+          {success && (
+            <Message success header="Se ha añadido el producto a tu carrito" />
+          )}
           <Link to="/tienda">
             <Button color="blue">Regresar a la tienda</Button>
           </Link>
@@ -81,4 +101,4 @@ const Product: React.FunctionComponent<Props> = ({ match }) => {
   );
 };
 
-export default Product;
+export default withCookies(Product);
