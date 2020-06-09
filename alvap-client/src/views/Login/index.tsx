@@ -8,9 +8,14 @@ import {
   Segment,
 } from 'semantic-ui-react';
 import { useHistory } from 'react-router-dom';
+import { withCookies, Cookies } from 'react-cookie';
 import { postToApi } from '../../utils';
 
-const Login: React.FunctionComponent = () => {
+interface LoginProps {
+  cookies: Cookies;
+}
+
+const Login: React.FunctionComponent<LoginProps> = ({ cookies }) => {
   const history = useHistory();
   const [correo, setCorreo] = useState('');
   const [password, setPassword] = useState('');
@@ -24,6 +29,10 @@ const Login: React.FunctionComponent = () => {
       if (res.error) {
         setError(res.error[0]);
       } else {
+        cookies.set('user', res.userID, {
+          maxAge: 86400,
+          path: '/',
+        });
         setError('');
         setSuccess(true);
         setTimeout(() => {
@@ -91,4 +100,4 @@ const Login: React.FunctionComponent = () => {
   );
 };
 
-export default Login;
+export default withCookies(Login);

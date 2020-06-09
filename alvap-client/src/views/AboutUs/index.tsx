@@ -1,37 +1,39 @@
-import React from 'react';
-import styled from '@emotion/styled';
-import facebook from './facebook.png';
-import twitter from './twitter.png';
-import instagram from './instagram.png';
-import { Subtitle, Title } from '../../styles/shared-components';
+import React, { useState } from 'react';
+import { Icon, Grid, Header, Form, Button, Message } from 'semantic-ui-react';
 
-const Logo = styled.img({
-  width: '25%',
-  display: 'block',
-  margin: '7.5% auto',
-  filter: 'grayscale(100%)',
-});
-
-const Text = styled.p({
-  margin: '5% 15%',
-  textAlign: 'center',
-  fontFamily: 'Verdana',
-  fontSize: '15px',
-  lineHeight: '25px',
-});
-
-const AboutUs: React.FunctionComponent = () => (
-  <div>
-    <Title>About Us page</Title>
-    <Subtitle>Social Media</Subtitle>
-    <Logo src={facebook} alt="Facebook logo" />
-    <Logo src={twitter} alt="Twitter logo" />
-    <Logo src={instagram} alt="Instagram logo" />
-    <Text>
-      Remember to follow us on our social media to know more about us and get
-      notified about promotions and deals
-    </Text>
-  </div>
-);
+const AboutUs: React.FunctionComponent = () => {
+  const [success, setSuccess] = useState(false);
+  return (
+    <Grid centered padded>
+      <br />
+      <Header as="h1">Nosotros</Header>
+      <p>
+        Son las siglas de “Alianza de Valor Proactivo”. Una comunidad de
+        productores distribuidores y consumidores quienes buscan impactar de
+        manera positiva en el entorno de cada uno de los eslabones de la cadena
+        de valor.
+      </p>
+      <Header as="h3">Síguenos en nuestras redes sociales</Header>
+      <Grid.Row>
+        <Icon name="facebook" size="huge" />
+        <Icon name="instagram" size="huge" />
+        <Icon name="twitter" size="huge" />
+      </Grid.Row>
+      <Header as="h3">Suscríbete y entérate de nuestras actividades</Header>
+      <p>Recibirás información sobre ofertas, actividades y actualizaciones</p>
+      <Form success>
+        <Form.Input label="Correo electrónico" />
+        {success && (
+          <Message
+            success
+            header="Listo"
+            content="Ya estás inscrito a nosotros"
+          />
+        )}
+        <Button onClick={() => setSuccess(true)}>Enviar</Button>
+      </Form>
+    </Grid>
+  );
+};
 
 export default AboutUs;

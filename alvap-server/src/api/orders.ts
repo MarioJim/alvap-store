@@ -7,7 +7,7 @@ const router = express.Router();
 router.get('/:id', async (req, res) => {
   try {
     const row = await db.get(
-      'SELECT * FROM Orden WHERE id = (?)',
+      'SELECT * FROM Orden, Repartidor WHERE Repartidor.id = Orden.id_repartidor AND Orden.id = (?)',
       req.params.id,
     );
     if (row === undefined) res.sendStatus(404);
