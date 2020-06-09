@@ -29,6 +29,7 @@ const Login: React.FunctionComponent<LoginProps> = ({ cookies }) => {
       if (res.error) {
         setError(res.error[0]);
       } else {
+        cookies.remove('delivery');
         cookies.set('user', res.userID, {
           maxAge: 86400,
           path: '/',
