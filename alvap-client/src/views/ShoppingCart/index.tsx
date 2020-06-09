@@ -13,8 +13,10 @@ const ShoppingCart: React.FunctionComponent<Props> = ({ cookies }) => {
   const [products, setProducts] = useState<any[]>([]);
   const [promos, setPromos] = useState<any[]>([]);
   const [promoNueva, setPromoNueva] = useState('');
-  const [success, setSuccess] = useState('');
-  const [error, setError] = useState('');
+  const [successProduct, setSuccessProduct] = useState(false);
+  const [errorProduct, setErrorProduct] = useState('');
+  const [successPromo, setSuccessPromo] = useState('');
+  const [errorPromo, setErrorPromo] = useState('');
   const cart = cookies.get('cart');
   const loadProducts = () => {
     getFromApi(`/carts/${cart}`).then((res) => {
@@ -30,22 +32,42 @@ const ShoppingCart: React.FunctionComponent<Props> = ({ cookies }) => {
     loadProducts();
     loadPromos();
   }, []);
+  const handleRemoveProduct = (id_producto: any) => {
+    postToApi('/carts/removeProduct', {
+      id_producto,
+      id_carrito: cart,
+    }).then((res) => {
+      if (res.error) {
+        setErrorProduct(res.error[0]);
+        setTimeout(() => {
+          setErrorProduct('');
+        }, 3000);
+      } else {
+        loadProducts();
+        setErrorProduct('');
+        setSuccessProduct(true);
+        setTimeout(() => {
+          setSuccessProduct(false);
+        }, 3000);
+      }
+    });
+  };
   const handleAddPromotion = () => {
     postToApi('/carts/addPromo', {
       id_promocion: promoNueva,
       id_carrito: cart,
     }).then((res) => {
       if (res.error) {
-        setError(res.error[0]);
+        setErrorPromo(res.error[0]);
         setTimeout(() => {
-          setError('');
+          setErrorPromo('');
         }, 3000);
       } else {
         loadPromos();
-        setError('');
-        setSuccess('añadida');
+        setErrorPromo('');
+        setSuccessPromo('añadida');
         setTimeout(() => {
-          setSuccess('');
+          setSuccessPromo('');
         }, 3000);
       }
     });
@@ -56,16 +78,16 @@ const ShoppingCart: React.FunctionComponent<Props> = ({ cookies }) => {
       id_carrito: cart,
     }).then((res) => {
       if (res.error) {
-        setError(res.error[0]);
+        setErrorPromo(res.error[0]);
         setTimeout(() => {
-          setError('');
+          setErrorPromo('');
         }, 3000);
       } else {
         loadPromos();
-        setError('');
-        setSuccess('quitada');
+        setErrorPromo('');
+        setSuccessPromo('quitada');
         setTimeout(() => {
-          setSuccess('');
+          setSuccessPromo('');
         }, 3000);
       }
     });
@@ -80,13 +102,13 @@ const ShoppingCart: React.FunctionComponent<Props> = ({ cookies }) => {
           <Header as="h2">Carrito vacío</Header>
         </Grid.Row>
       ) : (
-        products.map((producto, i) => (
-          <Grid.Row key={i}>
+        products.map((producto) => (
+          <Grid.Row key={producto.id}>
             <Swipeout
               right={[
                 {
                   text: 'Quitar',
-                  onPress: () => console.log('delete'),
+                  onPress: () => handleRemoveProduct(producto.id),
                   style: { backgroundColor: 'red', color: 'white' },
                   className: 'custom-class-2',
                 },
@@ -98,6 +120,18 @@ const ShoppingCart: React.FunctionComponent<Props> = ({ cookies }) => {
           </Grid.Row>
         ))
       )}
+      <Grid.Row>
+        {successProduct && (
+          <Message
+            success
+            header="Listo"
+            content="El producto ya fue removido"
+          />
+        )}
+        {errorProduct !== '' && (
+          <Message error header="Error" content={errorProduct} />
+        )}
+      </Grid.Row>
       {promos.length === 0 ? (
         <Grid.Row>
           <Header as="h2">Sin promociones</Header>
@@ -127,14 +161,16 @@ const ShoppingCart: React.FunctionComponent<Props> = ({ cookies }) => {
         <Button onClick={handleAddPromotion}>Añadir</Button>
       </Form>
       <Grid.Row>
-        {success !== '' && (
+        {successPromo !== '' && (
           <Message
             success
             header="Listo"
-            content={`La promoción ya fue ${success}`}
+            content={`La promoción ya fue ${successPromo}`}
           />
         )}
-        {error !== '' && <Message error header="Error" content={error} />}
+        {errorPromo !== '' && (
+          <Message error header="Error" content={errorPromo} />
+        )}
       </Grid.Row>
     </Grid>
   );
