@@ -23,13 +23,14 @@ const StyleProduct = styled.div<MatchParams>`
   }
   h1 {
     margin: 5%;
+    margin-bottom:0;
     font-size: 2.25rem;
     background-color: #e6fffe;
     padding: 2.5% 0;
   }
-  p {
+  .description {
     margin: 0 5% 5% 5%;
-    font-size: 1.5rem;
+    font-size: 1.61rem;
     border: 1px solid #333;
     padding: 2.5% 0;
   }
@@ -78,14 +79,14 @@ const Product: React.FunctionComponent<Props> = ({ cookies, match }) => {
         <div>Loading</div>
       ) : (
         <div>
-          <Header as="h1">{product.nombre}</Header>
+          <h1>{product.nombre}</h1>
           <h2>${product.precio}.00</h2>
           {product.foto === null ? (
             <img src={unavailable} alt="Not available" />
           ) : (
             <img src={product.foto} alt={product.nombre + ' foto'} />
           )}
-          <Header as="h2">{product.descripcion}</Header>
+          <Header as="p" className="description">{product.descripcion}</Header>
           <Button color="teal" onClick={handleAddToCart}>
             Añadir al carrito
           </Button>

@@ -104,7 +104,7 @@ const ShoppingCart: React.FunctionComponent<Props> = ({ cookies }) => {
       ) : (
         products.map((producto) => (
           <Grid.Row key={producto.id}>
-            <Swipeout
+            <Swipeout style={{width:'85%', margin:'2.5% 7.5%', height:'55px'}}
               right={[
                 {
                   text: 'Quitar',
@@ -114,8 +114,8 @@ const ShoppingCart: React.FunctionComponent<Props> = ({ cookies }) => {
                 },
               ]}
             >
-              <p>{producto.nombre}</p>
-              <p>${producto.precio}</p>
+              <span style={{ fontWeight: 'bold', marginLeft: '5%'}}>{producto.nombre}</span>
+              <span style={{marginLeft:'50%' }}>${producto.precio}</span>
             </Swipeout>
           </Grid.Row>
         ))
