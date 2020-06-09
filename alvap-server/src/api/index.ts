@@ -22,9 +22,11 @@ router.get('/', async (req, res) => {
 
 router.post('/login', users.handle_login);
 router.post('/register', users.handle_register);
+router.get('/user/:id', users.handle_user_query);
 
 router.post('/loginDelivery', delivery.handle_login);
 router.post('/registerDelivery', delivery.handle_register);
+router.get('/delivery/:id', users.handle_user_query);
 
 router.use('/cards', cards_router);
 router.use('/carts', carts_router);

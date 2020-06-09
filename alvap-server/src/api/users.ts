@@ -60,3 +60,20 @@ export const handle_login: RequestHandler = async (req, res) => {
     res.sendStatus(500);
   }
 };
+
+export const handle_user_query: RequestHandler = async (req, res) => {
+  try {
+    const user = await db.get(
+      'SELECT * FROM Cliente WHERE id = (?)',
+      req.params.id,
+    );
+    if (user === undefined) {
+      res.json({ error: ['Usuario no encontrado'] });
+    } else {
+      res.json(user);
+    }
+  } catch (error) {
+    console.error(error);
+    res.sendStatus(500);
+  }
+};
