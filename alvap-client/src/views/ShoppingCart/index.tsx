@@ -4,6 +4,7 @@ import Swipeout from 'rc-swipeout';
 import { withCookies, Cookies } from 'react-cookie';
 import { Form, Message, Button, Grid, Header } from 'semantic-ui-react';
 import 'rc-swipeout/assets/index.css';
+import './index.css';
 
 interface Props {
   cookies: Cookies;
@@ -104,7 +105,8 @@ const ShoppingCart: React.FunctionComponent<Props> = ({ cookies }) => {
       ) : (
         products.map((producto) => (
           <Grid.Row key={producto.id}>
-            <Swipeout style={{width:'85%', margin:'2.5% 7.5%', height:'55px'}}
+            <Swipeout
+              style={{ width: '85%', margin: '2.5% 7.5%', height: '55px' }}
               right={[
                 {
                   text: 'Quitar',
@@ -114,8 +116,10 @@ const ShoppingCart: React.FunctionComponent<Props> = ({ cookies }) => {
                 },
               ]}
             >
-              <span style={{ fontWeight: 'bold', marginLeft: '5%'}}>{producto.nombre}</span>
-              <span style={{marginLeft:'50%' }}>${producto.precio}</span>
+              <span style={{ fontWeight: 'bold', marginLeft: '5%' }}>
+                {producto.nombre}
+              </span>
+              <span style={{ marginLeft: '50%' }}>${producto.precio}</span>
             </Swipeout>
           </Grid.Row>
         ))
@@ -139,17 +143,27 @@ const ShoppingCart: React.FunctionComponent<Props> = ({ cookies }) => {
       ) : (
         promos.map((promo) => (
           <Grid.Row key={promo.id}>
-            <p style={{fontWeight:'bold', marginRight:'5px'}}>{promo.nombre}</p>
-            <p style={{ marginRight:'15px'}}>{promo.descripcion}</p>
-            <p style={{ fontWeight: 'lighter', color: '#666', marginRight: '5px' }}>${promo.descuento}</p>
+            <p style={{ fontWeight: 'bold', marginRight: '5px' }}>
+              {promo.nombre}
+            </p>
+            <p style={{ marginRight: '15px' }}>{promo.descripcion}</p>
+            <p
+              style={{
+                fontWeight: 'lighter',
+                color: '#666',
+                marginRight: '5px',
+              }}
+            >
+              ${promo.descuento}
+            </p>
             <Button
               negative
-              icon="close" style={{marginLeft:'10px'}}
+              icon="close"
+              style={{ marginLeft: '10px' }}
               onClick={() => handleRemovePromotion(promo.id)}
             />
             <br />
           </Grid.Row>
-          
         ))
       )}
       <Form success>

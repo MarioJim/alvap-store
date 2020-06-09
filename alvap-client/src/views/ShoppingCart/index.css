@@ -1,0 +1,7 @@
+.rc-swipeout-content {
+  position: relative;
+  background-color: #ccffcc;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
