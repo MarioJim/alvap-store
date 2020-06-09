@@ -139,15 +139,17 @@ const ShoppingCart: React.FunctionComponent<Props> = ({ cookies }) => {
       ) : (
         promos.map((promo) => (
           <Grid.Row key={promo.id}>
-            <p>{promo.nombre}</p>
-            <p>{promo.descripcion}</p>
-            <p>{promo.descuento}</p>
+            <p style={{fontWeight:'bold', marginRight:'5px'}}>{promo.nombre}</p>
+            <p style={{ marginRight:'15px'}}>{promo.descripcion}</p>
+            <p style={{ fontWeight: 'lighter', color: '#666', marginRight: '5px' }}>${promo.descuento}</p>
             <Button
               negative
-              icon="close"
+              icon="close" style={{marginLeft:'10px'}}
               onClick={() => handleRemovePromotion(promo.id)}
             />
+            <br />
           </Grid.Row>
+          
         ))
       )}
       <Form success>
