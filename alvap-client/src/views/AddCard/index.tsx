@@ -9,9 +9,14 @@ import {
   Button
 } from 'semantic-ui-react';
 import { postToApi } from '../../utils';
+import { withCookies, Cookies } from 'react-cookie';
 import { useHistory } from 'react-router-dom';
 
-const AddCard: React.FunctionComponent = () => {
+interface AddCardProps {
+  cookies: Cookies;
+}
+
+const AddCard: React.FunctionComponent<AddCardProps> = ({ cookies }) => {
   const history = useHistory();
   const [num, setNum] = useState('');
   const [titular, setTitular] = useState('');
@@ -19,8 +24,10 @@ const AddCard: React.FunctionComponent = () => {
   const [cvv, setCvv] = useState('');
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
+  const id_cliente = cookies.get('user');
   const handleSubmit = () => {
     postToApi('/cards', {
+      id_cliente,
       titular,
       num,
       fecha,
@@ -99,4 +106,4 @@ const AddCard: React.FunctionComponent = () => {
   );
 };
 
-export default AddCard;
+export default withCookies(AddCard);
