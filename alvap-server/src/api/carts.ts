@@ -122,4 +122,61 @@ router.post('/removeProduct', async (req, res) => {
   }
 });
 
+const modifyPromoInCartSchema = yup.object().shape({
+  id_carrito: yup.number().required('ID del carrito vacía'),
+  id_promocion: yup.number().required('ID de la promoción vacía'),
+});
+
+router.post('/addPromo', async (req, res) => {
+  try {
+    modifyPromoInCartSchema.validateSync(req.body);
+  } catch (error) {
+    res.json({ error: error.errors });
+    return;
+  }
+  try {
+    await db.run(
+      'INSERT INTO Rel_Carrito_Promocion (id_promocion, id_carrito) VALUES (?, ?)',
+      req.body.id_promocion,
+      req.body.id_carrito,
+    );
+    res.sendStatus(200);
+  } catch (error) {
+    if (error.errno === 19)
+      res
+        .status(200)
+        .json({ error: ['No existe un carrito o promoción con ese ID'] });
+    else {
+      console.error(error);
+      res.sendStatus(500);
+    }
+  }
+});
+
+router.post('/removePromo', async (req, res) => {
+  try {
+    modifyPromoInCartSchema.validateSync(req.body);
+  } catch (error) {
+    res.json({ error: error.errors });
+    return;
+  }
+  try {
+    await db.run(
+      'DELETE FROM Rel_Carrito_Promocion WHERE id_promocion = ? and id_carrito = ?',
+      req.body.id_promocion,
+      req.body.id_carrito,
+    );
+    res.sendStatus(200);
+  } catch (error) {
+    if (error.errno === 19)
+      res
+        .status(200)
+        .json({ error: ['No existe un carrito o promoción con ese ID'] });
+    else {
+      console.error(error);
+      res.sendStatus(500);
+    }
+  }
+});
+
 export default router;
