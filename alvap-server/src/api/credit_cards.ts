@@ -56,7 +56,7 @@ router.post('/', async (req, res) => {
   try {
     insertTarjetaSchema.validateSync(req.body);
   } catch (error) {
-    res.status(200).json({ error: error.errors });
+    res.json({ error: error.errors });
     return;
   }
   try {
@@ -71,7 +71,7 @@ router.post('/', async (req, res) => {
     res.sendStatus(200);
   } catch (error) {
     if (error.errno === 19)
-      res.status(200).json({ error: ['No existe un cliente con ese ID'] });
+      res.json({ error: ['No existe un cliente con ese ID'] });
     else {
       console.error(error);
       res.sendStatus(500);

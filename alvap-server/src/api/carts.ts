@@ -38,20 +38,26 @@ router.post('/', async (req, res) => {
   try {
     insertCartSchema.validateSync(req.body);
   } catch (error) {
-    res.status(200).json({ error: error.errors });
+    res.json({ error: error.errors });
     return;
   }
   try {
+    const rows = await db.all(
+      'SELECT * FROM Carrito WHERE id_cliente = ?',
+      req.params.cliente,
+    );
+    if (rows.length !== 0) {
+      res.json({ cart: rows.pop() });
+      return;
+    }
     const { lastID } = await db.run(
       'INSERT INTO Carrito (id_cliente) VALUES (?)',
       req.body.id_cliente,
     );
-    res.json({ id: lastID });
+    res.json({ cart: lastID });
   } catch (error) {
     if (error.errno === 19)
-      res.status(200).json({
-        error: ['No existe un cliente con ese ID'],
-      });
+      res.json({ error: ['No existe un cliente con ese ID'] });
     else {
       console.error(error);
       res.sendStatus(500);
@@ -68,7 +74,7 @@ router.post('/addProduct', async (req, res) => {
   try {
     modifyProductInCartSchema.validateSync(req.body);
   } catch (error) {
-    res.status(200).json({ error: error.errors });
+    res.json({ error: error.errors });
     return;
   }
   try {
@@ -94,7 +100,7 @@ router.post('/removeProduct', async (req, res) => {
   try {
     modifyProductInCartSchema.validateSync(req.body);
   } catch (error) {
-    res.status(200).json({ error: error.errors });
+    res.json({ error: error.errors });
     return;
   }
   try {

@@ -14,7 +14,7 @@ export const handle_register: RequestHandler = async (req, res) => {
   try {
     registrationSchema.validateSync(req.body);
   } catch (error) {
-    res.status(200).json({ error: error.errors });
+    res.json({ error: error.errors });
     return;
   }
   try {
@@ -28,7 +28,7 @@ export const handle_register: RequestHandler = async (req, res) => {
     res.sendStatus(200);
   } catch (error) {
     if (error.errno === 19)
-      res.status(200).json({ error: ['Ya existe una cuenta con ese correo'] });
+      res.json({ error: ['Ya existe una cuenta con ese correo'] });
     else {
       console.error(error);
       res.sendStatus(500);
@@ -40,7 +40,7 @@ export const handle_login: RequestHandler = async (req, res) => {
   try {
     loginSchema.validateSync(req.body);
   } catch (error) {
-    res.status(200).json({ error: error.errors });
+    res.json({ error: error.errors });
     return;
   }
   try {

@@ -47,7 +47,7 @@ router.post('/', async (req, res) => {
   try {
     insertProductSchema.validateSync(req.body);
   } catch (error) {
-    res.status(200).json({ error: error.errors });
+    res.json({ error: error.errors });
     return;
   }
   try {
@@ -77,7 +77,7 @@ router.put('/', async (req, res) => {
   try {
     updateProductSchema.validateSync(req.body);
   } catch (error) {
-    res.status(200).json({ error: error.errors });
+    res.json({ error: error.errors });
     return;
   }
   try {
