@@ -25,7 +25,7 @@ const StyleProduct = styled.div<MatchParams>`
     margin: 5%;
     font-size: 2.25rem;
     background-color: #e6fffe;
-    padding: 1.25% 0;
+    padding: 2.5% 0;
   }
   p {
     margin: 0 5% 5% 5%;
@@ -34,7 +34,7 @@ const StyleProduct = styled.div<MatchParams>`
     padding: 2.5% 0;
   }
   img {
-    width: 70%;
+    width: 75%;
     margin: 2.5% 12.5%;
   }
   button {

@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { getFromApi } from '../../utils';
 import Swipeout from 'rc-swipeout';
+import 'rc-swipeout/assets/index.css';
 import { withCookies, Cookies } from 'react-cookie';
+
 
 interface Props {
   cookies: Cookies;
@@ -38,6 +40,7 @@ const ShoppingCart: React.FunctionComponent<Props> = ({ cookies }) => {
                   text: 'delete',
                   onPress: () => console.log('delete'),
                   style: { backgroundColor: 'red', color: 'white' },
+                  className: 'custom-class-2'
                 },
               ]}
             >
