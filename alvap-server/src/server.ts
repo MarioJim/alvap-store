@@ -13,6 +13,11 @@ app.use(cors());
 // Call to api methods
 app.use('/api', api);
 
+// Download database
+app.get('/alvap.db', (req, res) => {
+    res.sendFile(path.join(__dirname, '..', 'alvap.db'));
+});
+
 // Fallback to React frontend
 app.get('*', (req, res) => {
   res.send(
