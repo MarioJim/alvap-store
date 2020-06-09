@@ -107,6 +107,10 @@ const LoggedInAsUser: LinkProperties[] = [
   {
     name: 'Añade una tarjeta',
     path: '/pago',
+  }, 
+  {
+    name: 'Carrito',
+    path: '/carrito',
   },
 ];
 
