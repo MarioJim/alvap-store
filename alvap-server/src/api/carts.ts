@@ -59,14 +59,14 @@ router.post('/', async (req, res) => {
   }
 });
 
-const insertProductToCartSchema = yup.object().shape({
+const modifyProductInCartSchema = yup.object().shape({
   id_carrito: yup.number().required('ID del carrito vacía'),
   id_producto: yup.number().required('ID del producto vacía'),
 });
 
 router.post('/addProduct', async (req, res) => {
   try {
-    insertProductToCartSchema.validateSync(req.body);
+    modifyProductInCartSchema.validateSync(req.body);
   } catch (error) {
     res.status(200).json({ error: error.errors });
     return;
@@ -74,6 +74,32 @@ router.post('/addProduct', async (req, res) => {
   try {
     await db.run(
       'INSERT INTO Rel_Carrito_Producto (id_producto, id_carrito) VALUES (?, ?)',
+      req.body.id_producto,
+      req.body.id_carrito,
+    );
+    res.sendStatus(200);
+  } catch (error) {
+    if (error.errno === 19)
+      res
+        .status(200)
+        .json({ error: ['No existe un carrito o producto con ese ID'] });
+    else {
+      console.error(error);
+      res.sendStatus(500);
+    }
+  }
+});
+
+router.post('/removeProduct', async (req, res) => {
+  try {
+    modifyProductInCartSchema.validateSync(req.body);
+  } catch (error) {
+    res.status(200).json({ error: error.errors });
+    return;
+  }
+  try {
+    await db.run(
+      'DELETE FROM Rel_Carrito_Producto WHERE id_producto = ? and id_carrito = ?',
       req.body.id_producto,
       req.body.id_carrito,
     );

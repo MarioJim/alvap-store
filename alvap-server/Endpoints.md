@@ -6,7 +6,7 @@ Todos los endpoints responden 500 cuando el servidor no puede responder a la sol
   - Espera un JSON con correo, password, domicilio y nombre
   - Cuando todo es correcto devuelve 200
   - Cuando el formulario tiene errores, devuelve 200 y una lista de errores
-  - Cuando el correo ya ha sido registrado devuelve 409 con una lista de errores
+  - Cuando el correo ya ha sido registrado devuelve 200 con una lista de errores
 - POST /api/login
   - Espera un JSON con username y password
   - Redirecciona a /tienda si el login es correcto
@@ -14,7 +14,7 @@ Todos los endpoints responden 500 cuando el servidor no puede responder a la sol
   - Espera un JSON con correo, password, domicilio y nombre
   - Cuando todo es correcto devuelve 200
   - Cuando el formulario tiene errores, devuelve 200 y una lista de errores
-  - Cuando el correo ya ha sido registrado devuelve 409 con una lista de errores
+  - Cuando el correo ya ha sido registrado devuelve 200 con una lista de errores
 - POST /api/loginDelivery
   - Espera un JSON con username y password
   - Redirecciona a /tienda si el login es correcto
@@ -40,6 +40,10 @@ Todos los endpoints responden 500 cuando el servidor no puede responder a la sol
   - Cuanto todo está bien regresa un JSON con el id del nuevo carrito
   - Cuando no encuentra un cliente con ese id regresa 404
 - POST /api/carts/addProduct
+  - Espera un JSON con id_carrito y id_producto
+  - Cuanto todo está bien regresa 200
+  - Cuando no encuentra un carrito o un producto con ese id regresa 404
+- POST /api/carts/removeProduct
   - Espera un JSON con id_carrito y id_producto
   - Cuanto todo está bien regresa 200
   - Cuando no encuentra un carrito o un producto con ese id regresa 404
