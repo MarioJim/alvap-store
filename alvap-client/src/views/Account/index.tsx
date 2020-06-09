@@ -13,13 +13,14 @@ interface AccountProps {
 
 const Account: React.FunctionComponent<AccountProps> = ({ cookies }) => {
   const userID = cookies.get('user');
-  const [cliente, setCliente] = useState();
+  const [cliente, setCliente] = useState<any>([]);
   useEffect(() => {
     getFromApi(`/user/${userID}`).then((res) => {
       console.log(res);
       setCliente(res);
     });
   }, []);
+  console.log(cliente.nombre)
   return (
     <Grid textAlign="center" style={{ height: '100vh' }} verticalAlign="middle">
       <Grid.Column style={{ maxWidth: 450 }}>
@@ -28,15 +29,15 @@ const Account: React.FunctionComponent<AccountProps> = ({ cookies }) => {
           </Header>
           <Segment.Group horizontal>
             <Segment> Nombre </Segment>
-            <Segment> Nombre_Usuario </Segment>
+            <Segment> {cliente.nombre} </Segment>
           </Segment.Group>
           <Segment.Group horizontal>
             <Segment> Correo </Segment>
-            <Segment> Correo_Usuario </Segment>
+            <Segment> {cliente.correo} </Segment>
           </Segment.Group>
           <Segment.Group horizontal>
             <Segment> Direccion </Segment>
-            <Segment> Direccion_Usuario </Segment>
+            <Segment> {cliente.domicilio} </Segment>
           </Segment.Group>
       </Grid.Column>
     </Grid>

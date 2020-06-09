@@ -93,10 +93,6 @@ const LoggedOut: LinkProperties[] = [
     name: 'Registro de repartidor',
     path: '/registrate-repartidor',
   },
-  {
-    name: 'Cuenta',
-    path: '/cuenta',
-  },
 ];
 
 const LoggedInAsUser: LinkProperties[] = [
@@ -115,6 +111,10 @@ const LoggedInAsUser: LinkProperties[] = [
   {
     name: 'Carrito',
     path: '/carrito',
+  },
+  {
+    name: 'Cuenta',
+    path: '/cuenta',
   },
 ];
 
