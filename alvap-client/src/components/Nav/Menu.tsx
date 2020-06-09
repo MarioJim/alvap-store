@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+import { withCookies, Cookies } from 'react-cookie';
 
 interface UlProps {
   open: boolean;
@@ -17,7 +18,6 @@ const Ul = styled.ul<UlProps>`
   li {
     padding: 10px;
   }
-
   a {
     color: rgba(0, 0, 0, 0.87);
     font-family: 'Work Sans', sans-serif;
@@ -68,24 +68,89 @@ const Ul = styled.ul<UlProps>`
 
 interface MenuProps extends UlProps {
   onClick: () => void;
+  cookies: Cookies;
 }
 
-const Menu: React.FunctionComponent<MenuProps> = ({ open, onClick }) => (
-  <Ul open={open}>
-    <Link to="/tienda">
-      <li onClick={onClick}>Tienda</li>
-    </Link>
-    <Link to="/nosotros">
-      <li onClick={onClick}>Nosotros</li>
-    </Link>
-    <Link to="/login">
-      <li onClick={onClick}>Login</li>
-    </Link>
-    <Link to="/cupones">
-      <li onClick={onClick}>Cupones</li>
-    </Link>
-    <li onClick={onClick}>Órdenes</li>
-  </Ul>
-);
+interface LinkProperties {
+  name: string;
+  path: string;
+}
 
-export default Menu;
+const LoggedOut: LinkProperties[] = [
+  {
+    name: 'Login',
+    path: '/login',
+  },
+  {
+    name: 'Regístrate',
+    path: '/registrate',
+  },
+  {
+    name: 'Login de repartidor',
+    path: '/login-repartidor',
+  },
+  {
+    name: 'Registro de repartidor',
+    path: '/registrate-repartidor',
+  },
+];
+
+const LoggedInAsUser: LinkProperties[] = [
+  {
+    name: 'Tienda',
+    path: '/tienda',
+  },
+  {
+    name: 'Nosotros',
+    path: '/nosotros',
+  },
+  {
+    name: 'Añade una tarjeta',
+    path: '/pago',
+  },
+];
+
+const LoggedInADeliveryMan: LinkProperties[] = [
+  {
+    name: 'Nosotros',
+    path: '/nosotros',
+  },
+];
+
+const Menu: React.FunctionComponent<MenuProps> = ({
+  cookies,
+  open,
+  onClick,
+}) => {
+  const history = useHistory();
+  const deliveryID = cookies.get('delivery');
+  const userID = cookies.get('user');
+  const isLoggedIn = !!deliveryID || !!userID;
+  const links: LinkProperties[] = [];
+  if (deliveryID) links.push(...LoggedInADeliveryMan);
+  else if (userID) links.push(...LoggedInAsUser);
+  else links.push(...LoggedOut);
+  return (
+    <Ul open={open}>
+      {links.map((linkProperties, i) => (
+        <Link key={i} to={linkProperties.path}>
+          <li onClick={onClick}>{linkProperties.name}</li>
+        </Link>
+      ))}
+      {isLoggedIn && (
+        <li
+          onClick={() => {
+            onClick();
+            cookies.remove('user');
+            cookies.remove('delivery');
+            history.push('/login');
+          }}
+        >
+          Log out
+        </li>
+      )}
+    </Ul>
+  );
+};
+
+export default withCookies(Menu);

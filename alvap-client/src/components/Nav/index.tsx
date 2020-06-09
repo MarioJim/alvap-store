@@ -10,7 +10,7 @@ const Nav = styled.nav({
   padding: '0 20px',
   display: 'flex',
   justifyContent: 'space-between',
-  zIndex:10,
+  zIndex: 10,
 });
 
 const Name = styled.div({
@@ -19,7 +19,9 @@ const Name = styled.div({
 
 const Navbar: React.FunctionComponent = () => (
   <Nav>
-    <Link to="/tienda" style={{color:'#111', fontSize: '2.5rem'}}><Name className="title">AL-VAP</Name></Link>
+    <Link to="/tienda" style={{ color: '#111', fontSize: '2.5rem' }}>
+      <Name className="title">ALVAP</Name>
+    </Link>
     <Burger />
   </Nav>
 );
