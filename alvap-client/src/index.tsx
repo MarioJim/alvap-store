@@ -15,6 +15,8 @@ import Product from './views/Product';
 import SignUp from './views/SignUp';
 import ShoppingCart from './views/ShoppingCart';
 import Store from './views/Store';
+import DeliveryLogin from './views/Delivery/Login';
+import Register from './views/Delivery/Register';
 import 'semantic-ui-css/semantic.min.css';
 import './index.css';
 
@@ -28,6 +30,8 @@ const App: React.FunctionComponent = () => (
       <Route path="/pago" component={AddCard} />
       <Route path="/confirmacion" component={Confirmation} />
       <Route path="/cupones" component={Coupons} />
+      <Route path="/login-repartidor" component={DeliveryLogin} />
+      <Route path="/registrate-repartidor" component={Register} />
       <Route path="/login" component={Login} />
       <Route path="/orden/:id" component={Order} />
       <Route path="/ordenes" component={PastOrders} />
